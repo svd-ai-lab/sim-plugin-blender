@@ -1,0 +1,11 @@
+SPDX-License-Identifier: GPL-3.0-or-later
+
+sim-plugin-blender is licensed under the GNU General Public License, version 3
+or later.
+
+The full license text is available at:
+
+https://www.gnu.org/licenses/gpl-3.0.html
+
+This package does not bundle Blender. Blender is distributed separately by the
+Blender Foundation under the GNU General Public License.

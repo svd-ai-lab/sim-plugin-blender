@@ -1,0 +1,57 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "sim-plugin-blender"
+version = "0.1.0"
+description = "Blender live-editing driver for sim-cli"
+readme = "README.md"
+license = "GPL-3.0-or-later"
+requires-python = ">=3.10"
+authors = [{ name = "Weiqi Ji", email = "jiweiqi10@gmail.com" }]
+keywords = ["blender", "3d", "simulation", "sim-cli", "plugin", "agents"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Topic :: Multimedia :: Graphics :: 3D Modeling",
+    "Topic :: Scientific/Engineering",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+]
+dependencies = [
+    "sim-cli-core>=0.3.5",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=8",
+]
+
+[project.entry-points."sim.drivers"]
+blender = "sim_plugin_blender:BlenderDriver"
+
+[project.entry-points."sim.skills"]
+blender = "sim_plugin_blender:skills_dir"
+
+[project.entry-points."sim.plugins"]
+blender = "sim_plugin_blender:plugin_info"
+
+[project.urls]
+Homepage = "https://github.com/svd-ai-lab/sim-plugin-blender"
+Repository = "https://github.com/svd-ai-lab/sim-plugin-blender"
+Issues = "https://github.com/svd-ai-lab/sim-plugin-blender/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/sim_plugin_blender"]
+include = ["src/sim_plugin_blender/**"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+  "integration: tests that require a real Blender executable",
+]

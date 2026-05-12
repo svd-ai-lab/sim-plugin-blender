@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.venv/
+dist/
+build/
+*.egg-info/
+
+# Local sim / Blender runs
+.sim/
+.sim-e2e/
+blender_smoke_output/
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/
+*.swp
