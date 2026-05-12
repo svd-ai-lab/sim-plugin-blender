@@ -78,13 +78,14 @@ SIM_BLENDER_RUN_INTEGRATION=1 uv run --extra test pytest tests/test_real_blender
 
 ## Cookbook
 
-Examples live in [`cookbook/`](cookbook/). The Starship stack example creates
-an approximate SpaceX Starship/Super Heavy model in a live Blender session and
-saves a `.blend` checkpoint:
+Runnable examples live in
+[`sim-cookbook`](https://github.com/svd-ai-lab/sim-cookbook). The Starship
+stack recipe creates an approximate SpaceX Starship/Super Heavy model in a live
+Blender session and saves a `.blend` checkpoint:
 
 ```bash
 uv run sim connect --solver blender --ui-mode gui --workspace .sim-e2e/starship
-uv run sim exec --file cookbook/starship_stack.py --label starship-stack
+uv run sim exec --file blender/examples/starship_stack/00_create_starship_stack.py --label starship-stack
 uv run sim screenshot --output .sim-e2e/starship/starship_stack.png
 ```
 
