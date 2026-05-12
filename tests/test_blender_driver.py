@@ -45,6 +45,19 @@ def test_connect_not_installed(monkeypatch) -> None:
     assert info.status == "not_installed"
 
 
+def test_make_install_records_version(monkeypatch, tmp_path: Path) -> None:
+    from sim_plugin_blender import driver as drv
+
+    exe = tmp_path / "blender.exe"
+    exe.write_text("fake exe")
+    monkeypatch.setattr(drv, "_probe_version", lambda _exe, timeout_s=15.0: "5.1.1")
+
+    install = drv._make_install(exe, "test")
+
+    assert install is not None
+    assert install.version == "5.1.1"
+
+
 def test_run_file_constructs_background_command(monkeypatch) -> None:
     from sim_plugin_blender import driver as drv
 

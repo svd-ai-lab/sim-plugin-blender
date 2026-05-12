@@ -125,7 +125,7 @@ def _make_install(exe: Path, source: str) -> SolverInstall | None:
         resolved = exe
     return SolverInstall(
         name="blender",
-        version="unknown",
+        version=_probe_version(str(resolved), timeout_s=5.0) or "unknown",
         path=str(resolved.parent),
         source=source,
         extra={"exe": str(resolved)},

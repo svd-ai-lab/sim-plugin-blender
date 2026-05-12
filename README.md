@@ -19,6 +19,29 @@ Blender itself is not bundled. Install Blender from blender.org, Homebrew, your
 OS package manager, or your studio-managed distribution, then expose the binary
 on `PATH` or set `SIM_BLENDER_EXE`.
 
+## Install
+
+For agent projects, install sim-cli-core and the Blender plugin in the project
+environment:
+
+```bash
+uv init  # only if this is not already a uv project
+uv add sim-cli-core sim-plugin-blender
+uv run sim plugin sync-skills --target .agents/skills --copy
+uv run sim check blender
+uv run sim plugin doctor blender --deep
+```
+
+For Claude Code, sync the bundled skill to `.claude/skills` instead:
+
+```bash
+uv run sim plugin sync-skills --target .claude/skills --copy
+```
+
+`uv run sim ...` runs sim from this project environment, so it sees this
+project's plugins. Without uv, create and activate a venv, then install
+`sim-cli-core` plus this plugin with `python -m pip`.
+
 ## Shell-composable launch
 
 The live bridge is intentionally plain CLI:
@@ -38,8 +61,19 @@ Use source checkouts and targeted tests while developing. Build wheels only for
 release validation.
 
 ```bash
-PYTHONPATH=../sim-cli/src:src python -m pytest tests -q
-SIM_BLENDER_RUN_INTEGRATION=1 PYTHONPATH=../sim-cli/src:src python -m pytest tests/test_real_blender_live.py -q
+git clone https://github.com/svd-ai-lab/sim-plugin-blender
+cd sim-plugin-blender
+uv sync --extra test
+uv run sim plugin list
+uv run sim check blender
+uv run --extra test pytest --basetemp .pytest_basetemp/local -q -m "not integration"
+uv build
+```
+
+Run the real Blender smoke only on a machine with Blender installed:
+
+```bash
+SIM_BLENDER_RUN_INTEGRATION=1 uv run --extra test pytest tests/test_real_blender_live.py -q
 ```
 
 ## License
