@@ -53,6 +53,14 @@ uv run sim run --solver blender path/to/script.py
 Scripts should print a final JSON object line and save explicit artifacts such
 as `.blend`, `.json`, renders, or exported meshes.
 
+## Cookbook pattern
+
+For demonstrator geometry, keep the script self-contained and runnable through
+both the live bridge and one-shot path. Set `_result` for `sim exec`, print the
+same JSON for `sim run`, save a `.blend` checkpoint, and include dimensions or
+source assumptions in the result payload. The Starship cookbook example follows
+this pattern.
+
 ## Optional MCP composition
 
 Third-party tools such as `blender-mcp` and `blend-ai` can be useful for richer

@@ -7,6 +7,7 @@ from sim_plugin_blender import BlenderDriver
 
 
 FIXTURES = Path(__file__).parent.parent / "fixtures"
+COOKBOOK = Path(__file__).parent.parent / "cookbook"
 
 
 def test_detects_blender_python_script() -> None:
@@ -24,6 +25,14 @@ def test_missing_detect_returns_false(tmp_path: Path) -> None:
 def test_lint_parses_python() -> None:
     result = BlenderDriver().lint(FIXTURES / "blender_ok.py")
     assert result.ok is True
+
+
+def test_starship_cookbook_script_is_detected_and_lints() -> None:
+    script = COOKBOOK / "starship_stack.py"
+    driver = BlenderDriver()
+
+    assert driver.detect(script) is True
+    assert driver.lint(script).ok is True
 
 
 def test_lint_missing_file_returns_diagnostic(tmp_path: Path) -> None:

@@ -76,6 +76,18 @@ Run the real Blender smoke only on a machine with Blender installed:
 SIM_BLENDER_RUN_INTEGRATION=1 uv run --extra test pytest tests/test_real_blender_live.py -q
 ```
 
+## Cookbook
+
+Examples live in [`cookbook/`](cookbook/). The Starship stack example creates
+an approximate SpaceX Starship/Super Heavy model in a live Blender session and
+saves a `.blend` checkpoint:
+
+```bash
+uv run sim connect --solver blender --ui-mode gui --workspace .sim-e2e/starship
+uv run sim exec --file cookbook/starship_stack.py --label starship-stack
+uv run sim screenshot --output .sim-e2e/starship/starship_stack.png
+```
+
 ## License
 
 This package is GPL-3.0-or-later. The Blender-side bridge imports `bpy` when it
