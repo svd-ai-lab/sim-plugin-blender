@@ -55,11 +55,11 @@ as `.blend`, `.json`, renders, or exported meshes.
 
 ## Cookbook pattern
 
-Runnable recipes belong in `sim-cookbook`, not this plugin repo. For
-demonstrator geometry, keep the script self-contained and runnable through both
-the live bridge and one-shot path. Set `_result` for `sim exec`, print the same
-JSON for `sim run`, save a `.blend` checkpoint, and include dimensions or source
-assumptions in the result payload.
+Runnable recipes belong in the project-owned recipe/docs repository, not this
+plugin repo. For demonstrator geometry, keep the script self-contained and
+runnable through both the live bridge and one-shot path. Set `_result` for
+`sim exec`, print the same JSON for `sim run`, save a `.blend` checkpoint, and
+include dimensions or source assumptions in the result payload.
 
 ## Optional MCP composition
 
