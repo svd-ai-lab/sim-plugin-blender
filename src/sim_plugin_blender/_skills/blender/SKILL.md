@@ -1,6 +1,6 @@
 ---
 name: blender-sim
-description: Use when working with Blender through sim: live visible editing, bounded bpy snippets, scene inspection, checkpoints, renders, and optional composition with Blender MCP tools.
+description: Use when working with Blender through sim: live visible editing, bounded bpy snippets, scene inspection, checkpoints, renders, and optional explicit composition with Blender Lab MCP tools.
 ---
 
 # blender-sim
@@ -61,12 +61,36 @@ runnable through both the live bridge and one-shot path. Set `_result` for
 `sim exec`, print the same JSON for `sim run`, save a `.blend` checkpoint, and
 include dimensions or source assumptions in the result payload.
 
-## Optional MCP composition
+## Optional Blender Lab MCP companion
 
-Third-party tools such as `blender-mcp` and `blend-ai` can be useful for richer
-tool surfaces. Do not silently install or start them. If the user already uses
-one, keep `sim` responsible for connection health, checkpoints, and structured
-inspection.
+The official Blender Lab MCP Server can be useful when the user already has an
+MCP-capable agent and wants richer Blender API/manual resources or
+natural-language scene exploration. It is an optional companion, not the
+default sim transport.
+
+Do not silently install, enable, or start MCP tooling. Do not claim MCP tools
+exist unless the user has installed the Blender Lab add-on, started/configured
+the `blender-mcp` server in their MCP client, and understands the security
+tradeoff: Blender Lab warns that the MCP server executes LLM-generated code in
+Blender without guards. Prefer an isolated VM or a machine without sensitive
+data.
+
+If the user chooses MCP composition:
+
+```bash
+python -m pip install "git+https://projects.blender.org/lab/blender_mcp.git#subdirectory=mcp"
+```
+
+Then have them install and enable the add-on from `https://lab.blender.org/` or
+the Blender Lab MCP page, configure their MCP client to run `blender-mcp`, and
+keep `sim` responsible for connection health, checkpoints, screenshots, and
+structured inspection. After any MCP-driven scene mutation, inspect before
+continuing:
+
+```bash
+uv run sim inspect blender.scene.summary
+uv run sim screenshot --output scene-after-mcp.png
+```
 
 ## Guardrails
 
